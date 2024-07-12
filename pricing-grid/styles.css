@@ -14,34 +14,36 @@ ul {
     list-style: none;
 }
 
+.container {
+    margin: 70px auto;
+    padding: 3% 3%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1300px;
+    min-height: 600px;
+}
+
 .pricing {
+    margin: 0px auto;
     display: flex;
     align-items: center;
-    margin: 50px auto;
-    padding: 0px 100px;
+    justify-content: center;
     gap: 40px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50px;
-    max-width: 1400px;
-    height: 800px;
+    min-width: fit-content;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    width: 30%;
     align-items: center;
     text-align: center;
-    margin: 10px;
     background-color: #ffffff;
     border-radius: 20px;
-    height: fit-content;
-    max-height: 90%;
+    min-height: fit-content;
 }
 
 .card-free {
-    margin-left: 50px;
     box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -50,7 +52,6 @@ ul {
 }
 
 .card-enterprise {
-    margin-right: 50px;
     box-shadow: 0px 0px 25px 5px rgba(255, 191, 155, 1);
 }
 
@@ -81,7 +82,7 @@ ul {
 
 .price {
     font-size: 50px;
-    font-weight: 700;
+    font-weight: bold;
     margin-top: 60px;
     color: #38345c;
 } 
@@ -93,7 +94,7 @@ ul {
 sup {
     font-size: 12px;
     position: relative;
-    top: -15px;
+    top: -10px;
     left: -5px;
 }
 
@@ -106,16 +107,16 @@ sup {
 }
 
 .main-text {
-    margin-top: 50px;
+    margin-top: 40px;
     color: #38345c;
     padding: 0px 40px;
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .btn {
     text-decoration: none;
     margin-top: 40px;
-    width: 80%;
+    min-width: 80%;
     background-color: #000048;
     color: #fff;
     border-radius: 20px;
@@ -148,4 +149,20 @@ li {
 i {
     margin-right: 10px;
     color: #88c28f;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        max-width: fit-content;
+        padding: 6% 6%;
+    }
+
+    .pricing {
+        flex-direction: column;
+    }
+
+
+    .card {
+        min-width: 100%;
+    }
 }
