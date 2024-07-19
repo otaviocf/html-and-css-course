@@ -8,9 +8,10 @@
     --primary-gradient: linear-gradient(90deg, rgba(46,41,213,1) 0%, rgba(112,255,148,1) 100%);
 }
 
-body {
+body, html {
     font-family: Poppins, sans-serif;
     background-color: rgb(240, 240, 240);
+    scroll-behavior: smooth;
 }
 
 nav {
@@ -28,7 +29,7 @@ nav {
 
     ul {
         display: flex;
-        gap: 15px;
+        gap: 45px;
         list-style: none;
         
         a {
