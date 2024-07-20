@@ -37,6 +37,12 @@ img {
   background-color: var(--primary-color);
 }
 
+.section-heading {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 /* container */
 
 .container {
@@ -153,6 +159,39 @@ img {
   align-items: center;
 }
 
+/* services */
+
+.services {
+  background: #333;
+  color: #fff;
+  padding: 3rem 0 4rem;
+}
+
+.services-flex {
+  display: flex;
+  gap: 2rem;
+}
+
+.service-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+}
+
+/* team */
+
+.team {
+  padding: 3rem 0 4rem;
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+.team-flex {
+  display: flex;
+  gap: 1.4rem;
+}
+
 /* media queries */
 
 @media screen and (max-width: 768px) {
@@ -173,7 +212,9 @@ img {
     width: calc(50% - 20px);
   }
   
-  .footer-flex {
+  .footer-flex, 
+  .services .services-flex, 
+  .team .team-flex {
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
