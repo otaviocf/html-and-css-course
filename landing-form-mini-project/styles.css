@@ -73,6 +73,7 @@ header {
             height: 75px;
             border-radius: 5px;
             min-width: 100%;
+            resize: none;
         }
 
         button {
@@ -174,9 +175,6 @@ header {
 
 @media (max-height:500px) {
     .main-content {
-        margin: 0 auto;
-        
+        margin: 0 auto;   
     }
-
-
 }
