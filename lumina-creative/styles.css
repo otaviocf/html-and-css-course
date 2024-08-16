@@ -147,15 +147,14 @@ img {
 
 /* gallery section */
 
-.gallery-flex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
 .gallery-item {
-  width: calc(33.333% - 20px);
+  width: 100%;
   border-radius: 10px;
 
   &:hover {
