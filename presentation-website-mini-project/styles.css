@@ -2,8 +2,74 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  outline: 1px solid green;
 }
 
-body {
+html, body {
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --page-1-color: steelblue;
+  --page-2-color: tan;
+  --page-3-color: teal;
+  --page-4-color: slateblue;
+  --animate-speed: 2s;
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 3rem;
+  color: #fff;
+
+  h1 {
+    font-size: 4rem;
+    line-height: 1.2;
+    margin: 2rem;
+  }
+
+  p {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    display: inline;
+    padding: 1rem 2rem;
+    background: lightgrey;
+    color: #333;
+    text-decoration: none;
+    margin-top: 3rem;
+    font-size: 1.1rem;
+    border: none;
+    transition: all 0.5s ease-in;
+    
+    &:hover {
+      background-color: #333;
+      color: #fff;
+    }
+  }
+}
+
+
+/* Page Colors */
+#page-1 {
+  background-color: var(--page-1-color);
+}
+
+#page-2 {
+  background-color: var(--page-2-color);
+}
+
+#page-3 {
+  background-color: var(--page-3-color);
+}
+
+#page-4 {
+  background-color: var(--page-4-color);
 }
