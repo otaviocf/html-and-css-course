@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  outline: 1px solid green;
 }
 
 html, body {
@@ -15,7 +14,24 @@ html, body {
   --page-2-color: tan;
   --page-3-color: teal;
   --page-4-color: slateblue;
-  --animate-speed: 2s;
+  --animate-speed: 1s;
+}
+
+/* Page Colors */
+#page-1 {
+  background-color: var(--page-1-color);
+}
+
+#page-2 {
+  background-color: var(--page-2-color);
+}
+
+#page-3 {
+  background-color: var(--page-3-color);
+}
+
+#page-4 {
+  background-color: var(--page-4-color);
 }
 
 .page {
@@ -39,7 +55,7 @@ html, body {
   }
 
   .btn {
-    display: inline;
+    display: inline-block;
     padding: 1rem 2rem;
     background: lightgrey;
     color: #333;
@@ -47,7 +63,9 @@ html, body {
     margin-top: 3rem;
     font-size: 1.1rem;
     border: none;
-    transition: all 0.5s ease-in;
+    transition: 
+      color 0.5s ease-in, 
+      background-color 0.3s ease-in;
     
     &:hover {
       background-color: #333;
@@ -56,20 +74,48 @@ html, body {
   }
 }
 
+.btn.btn-dark {
+  background-color: #333;
+  color: #fff;
+  transition: opacity 0.3s ease-in;
 
-/* Page Colors */
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 #page-1 {
-  background-color: var(--page-1-color);
+  h1 {
+    transform: translateY(-1200px);
+    animation: headingMove var(--animate-speed) forwards ease-in;
+  }
+
+  p {
+    transform: translateX(-1800px);
+    animation: paragraphMove var(--animate-speed) forwards ease-in;
+  }
 }
 
-#page-2 {
-  background-color: var(--page-2-color);
+@keyframes headingMove {
+  to {
+    transform: translateY(0);
+  }
 }
 
-#page-3 {
-  background-color: var(--page-3-color);
+@keyframes paragraphMove {
+  to {
+    transform: translateX(0);
+  }
 }
 
-#page-4 {
-  background-color: var(--page-4-color);
+@media (max-width: 768px) {
+  .page {
+    h1 {
+      font-size: 3.5rem
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
 }
