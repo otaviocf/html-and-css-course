@@ -2,6 +2,7 @@ const itemForm = document.querySelector('#item-form')
 const itemInput = document.querySelector('#item-input')
 const itemList = document.querySelector('#item-list')
 const clearButton = document.querySelector('#clear')
+const filterInput = document.querySelector('#filter')
 
 const addItem = (event) => {
   event.preventDefault()
@@ -20,7 +21,9 @@ const addItem = (event) => {
   const button = createButton('remove-item btn-link text-red')
   li.appendChild(button)
 
+  // Add li to the DOM
   itemList.appendChild(li)
+  checkUI()
   itemInput.value = ''
 }
 
@@ -41,14 +44,31 @@ const createIcon = (classes) => {
 // Remove item
 const removeItem = (event) => {
   if (event.target.parentElement.classList.contains('remove-item')) {
-    event.target.parentElement.parentElement.remove()
+    if (confirm('Tem certeza?')) {
+      event.target.parentElement.parentElement.remove()
+      checkUI()
+    }
   }
+
+  checkUI()
 }
 
 // Clear shopping list
-const clearList = (event) => {
+const clearList = () => {
   while (itemList.firstChild) {
     itemList.removeChild(itemList.firstChild)
+  }
+
+  checkUI()
+}
+
+const checkUI = () => {
+  if (document.querySelectorAll('li').length === 0) {
+    filterInput.style.display = 'none'
+    clearButton.style.display = 'none'
+  } else {
+    filterInput.style.display = 'block'
+    clearButton.style.display = 'block'
   }
 }
 
@@ -56,3 +76,5 @@ const clearList = (event) => {
 itemForm.addEventListener('submit', addItem)
 itemList.addEventListener('click', removeItem)
 clearButton.addEventListener('click', clearList)
+
+checkUI()
