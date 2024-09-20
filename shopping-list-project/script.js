@@ -1,6 +1,7 @@
 const itemForm = document.querySelector('#item-form')
 const itemInput = document.querySelector('#item-input')
 const itemList = document.querySelector('#item-list')
+const clearButton = document.querySelector('#clear')
 
 const addItem = (event) => {
   event.preventDefault()
@@ -12,7 +13,7 @@ const addItem = (event) => {
     return
   }
 
-  // Create element
+  // Create and add item
   const li = document.createElement('li')
   li.appendChild(document.createTextNode(newItem))
 
@@ -37,12 +38,21 @@ const createIcon = (classes) => {
   return icon
 }
 
+// Remove item
 const removeItem = (event) => {
   if (event.target.parentElement.classList.contains('remove-item')) {
     event.target.parentElement.parentElement.remove()
   }
-} 
+}
+
+// Clear shopping list
+const clearList = (event) => {
+  while (itemList.firstChild) {
+    itemList.removeChild(itemList.firstChild)
+  }
+}
 
 // Event Listeners
 itemForm.addEventListener('submit', addItem)
 itemList.addEventListener('click', removeItem)
+clearButton.addEventListener('click', clearList)
