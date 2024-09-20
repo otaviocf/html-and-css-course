@@ -37,5 +37,12 @@ const createIcon = (classes) => {
   return icon
 }
 
+const removeItem = (event) => {
+  if (event.target.parentElement.classList.contains('remove-item')) {
+    event.target.parentElement.parentElement.remove()
+  }
+} 
+
 // Event Listeners
 itemForm.addEventListener('submit', addItem)
+itemList.addEventListener('click', removeItem)
