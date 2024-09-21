@@ -4,7 +4,15 @@ const itemList = document.querySelector('#item-list')
 const clearButton = document.querySelector('#clear')
 const filterInput = document.querySelector('#filter')
 
-const addItem = (event) => {
+const displayItems = () => {
+  const itemsFromStorage = getItemsFromLocalStorage()
+
+  itemsFromStorage.forEach((item) => addItemToDOM(item))
+
+  checkUI()
+}
+
+const onAddItemSubmit = (event) => {
   event.preventDefault()
   const newItem = itemInput.value
   
@@ -14,18 +22,58 @@ const addItem = (event) => {
     return
   }
 
-  // Create and add item
-  const li = document.createElement('li')
-  li.appendChild(document.createTextNode(newItem))
+  // Create and store item
+  addItemToDOM(newItem)
+  addItemToLocalStorage(newItem)
 
-  const button = createButton('remove-item btn-link text-red')
-  li.appendChild(button)
-
-  // Add li to the DOM
-  itemList.appendChild(li)
   checkUI()
+
   itemInput.value = ''
 }
+
+const addItemToDOM = (item) => {
+   // Create and add item
+   const li = document.createElement('li')
+   li.appendChild(document.createTextNode(item))
+ 
+   const button = createButton('remove-item btn-link text-red')
+   li.appendChild(button)
+ 
+   // Add li to the DOM
+   itemList.appendChild(li)
+}
+
+const addItemToLocalStorage = (item) => {
+  const itemsFromStorage = getItemsFromLocalStorage()
+
+  // Add new item to array
+  itemsFromStorage.push(item)
+
+  // Convert to JSON string and set to local storage
+  localStorage.setItem('items', JSON.stringify(itemsFromStorage))
+}
+
+const getItemsFromLocalStorage = () => {
+  let itemsFromStorage
+
+  if (localStorage.getItem('items') === null) {
+    itemsFromStorage = []
+  } else {
+    itemsFromStorage = JSON.parse(localStorage.getItem('items'))
+  }
+
+  return itemsFromStorage
+}
+
+const removeItemFromLocalStorage = (item) => {
+  let itemsFromStorage = getItemsFromLocalStorage()
+  
+  // Filter out item to be removed
+  itemsFromStorage = itemsFromStorage.filter((i) => i !== item)
+
+  // Reset to local storage
+  localStorage.setItem('items', JSON.stringify(itemsFromStorage))
+} 
 
 const createButton = (classes) => {
   const button = document.createElement('button')
@@ -41,13 +89,24 @@ const createIcon = (classes) => {
   return icon
 }
 
-// Remove item
-const removeItem = (event) => {
+const onClickItem = (event) => {
   if (event.target.parentElement.classList.contains('remove-item')) {
-    if (confirm('Tem certeza?')) {
-      event.target.parentElement.parentElement.remove()
-      checkUI()
-    }
+    removeItem(event.target.parentElement.parentElement)
+  }
+
+  checkUI()
+}
+
+// Remove item
+const removeItem = (item) => {
+  if (confirm('Tem certeza?')) {
+    // Remove item from DOM
+    item.remove()
+
+    // Remove item from local storage
+    removeItemFromLocalStorage(item.textContent)
+
+    checkUI()
   }
 
   checkUI()
@@ -58,6 +117,9 @@ const clearList = () => {
   while (itemList.firstChild) {
     itemList.removeChild(itemList.firstChild)
   }
+
+  // Clear from local storage
+  localStorage.clear()
 
   checkUI()
 }
@@ -88,9 +150,10 @@ const checkUI = () => {
 }
 
 // Event Listeners
-itemForm.addEventListener('submit', addItem)
-itemList.addEventListener('click', removeItem)
+itemForm.addEventListener('submit', onAddItemSubmit)
+itemList.addEventListener('click', onClickItem)
 clearButton.addEventListener('click', clearList)
 filterInput.addEventListener('input', filterItems)
+document.addEventListener('DOMContentLoaded', displayItems)
 
 checkUI()
