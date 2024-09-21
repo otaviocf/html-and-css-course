@@ -62,6 +62,21 @@ const clearList = () => {
   checkUI()
 }
 
+// Filter items
+const filterItems = () => {
+  const query = filterInput.value
+
+  document.querySelectorAll('li').forEach((item) => {
+    const itemText = item.textContent.toUpperCase()
+
+    if (itemText.includes(query.toUpperCase())) {
+      item.style.display = 'flex'
+    } else {
+      item.style.display = 'none'
+    }
+  })
+}
+
 const checkUI = () => {
   if (document.querySelectorAll('li').length === 0) {
     filterInput.style.display = 'none'
@@ -76,5 +91,6 @@ const checkUI = () => {
 itemForm.addEventListener('submit', addItem)
 itemList.addEventListener('click', removeItem)
 clearButton.addEventListener('click', clearList)
+filterInput.addEventListener('input', filterItems)
 
 checkUI()
