@@ -122,7 +122,7 @@ const setItemToEdit = (item) => {
   item.style.opacity = 0.6
   item.classList.add('editing')
   formButton.firstElementChild.classList = 'fa-solid fa-pen'
-  formButton.firstElementChild.nextSibling.textContent = ' Update Item'
+  formButton.firstElementChild.nextSibling.textContent = ' Atualizar Item'
   formButton.style.backgroundColor = '#228b22'
   itemInput.value = item.textContent
 }
@@ -192,7 +192,7 @@ const checkUI = () => {
   }
 
   formButton.firstElementChild.classList = 'fa-solid fa-plus'
-  formButton.firstElementChild.nextSibling.textContent = ' Add Item'
+  formButton.firstElementChild.nextSibling.textContent = ' Adicionar Item'
   formButton.style.backgroundColor = '#333'
   isEditMode = false
 }
