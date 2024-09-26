@@ -31,6 +31,11 @@ const onAddItemSubmit = (event) => {
     itemToEdit.classList.remove('editing')
     itemToEdit.remove()
     isEditMode = false
+  } else {
+    if (checkIfItemExists(newItem)) {
+      alert('Este item já está na lista')
+      return
+    }
   }
 
   checkUI()
@@ -162,6 +167,17 @@ const filterItems = () => {
       item.style.display = 'none'
     }
   })
+}
+
+// Prevent duplicate entries
+const checkIfItemExists = (item) => {
+  const itemsFromStorage = getItemsFromLocalStorage()
+
+  if (itemsFromStorage.includes(item)) {
+    return true
+  } else {
+    return false
+  }
 }
 
 const checkUI = () => {
