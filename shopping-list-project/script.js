@@ -3,6 +3,8 @@ const itemInput = document.querySelector('#item-input')
 const itemList = document.querySelector('#item-list')
 const clearButton = document.querySelector('#clear')
 const filterInput = document.querySelector('#filter')
+const formButton = document.querySelector('.btn')
+let isEditMode = false
 
 const displayItems = () => {
   const itemsFromStorage = getItemsFromLocalStorage()
@@ -22,6 +24,16 @@ const onAddItemSubmit = (event) => {
     return
   }
 
+  // Chack for edit mode
+  if (isEditMode) {
+    const itemToEdit = document.querySelector('.editing')
+    removeItemFromLocalStorage(itemToEdit.textContent)
+    itemToEdit.classList.remove('editing')
+    itemToEdit.remove()
+    isEditMode = false
+  }
+
+  checkUI()
   // Create and store item
   addItemToDOM(newItem)
   addItemToLocalStorage(newItem)
@@ -92,9 +104,22 @@ const createIcon = (classes) => {
 const onClickItem = (event) => {
   if (event.target.parentElement.classList.contains('remove-item')) {
     removeItem(event.target.parentElement.parentElement)
+  } else {
+    setItemToEdit(event.target)
   }
+}
 
-  checkUI()
+const setItemToEdit = (item) => {
+  isEditMode = true
+
+  itemList.querySelectorAll('li').forEach((item) => item.style.opacity = 1)
+
+  item.style.opacity = 0.6
+  item.classList.add('editing')
+  formButton.firstElementChild.classList = 'fa-solid fa-pen'
+  formButton.firstElementChild.nextSibling.textContent = ' Update Item'
+  formButton.style.backgroundColor = '#228b22'
+  itemInput.value = item.textContent
 }
 
 // Remove item
@@ -140,6 +165,8 @@ const filterItems = () => {
 }
 
 const checkUI = () => {
+  itemInput.value = ''
+
   if (document.querySelectorAll('li').length === 0) {
     filterInput.style.display = 'none'
     clearButton.style.display = 'none'
@@ -147,6 +174,11 @@ const checkUI = () => {
     filterInput.style.display = 'block'
     clearButton.style.display = 'block'
   }
+
+  formButton.firstElementChild.classList = 'fa-solid fa-plus'
+  formButton.firstElementChild.nextSibling.textContent = ' Add Item'
+  formButton.style.backgroundColor = '#333'
+  isEditMode = false
 }
 
 // Event Listeners
