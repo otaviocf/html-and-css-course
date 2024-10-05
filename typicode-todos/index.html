@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>Lista de Tarefas</title>
+</head>
+<body>
+  <div class="container">
+    <form class="form">
+      <input type="text" name="task" placeholder="Insira uma nova tarefa">
+      <button id="add-item"><i class="fa-solid fa-plus"></i></button>
+    </form>
+
+    <p class="title">Tarefas não concluídas</p>
+    
+    <div class="task-group incomplete-tasks">
+      <div class="task">
+        <p>Estudar</p>
+        <div>
+          <button id="mark-as-done"><i class="fa-solid fa-check"></i></button>
+          <button id="delete"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+      <div class="task">
+        <p>Estudar</p>
+        <div>
+          <button id="mark-as-done"><i class="fa-solid fa-check"></i></button>
+          <button id="delete"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+      <div class="task">
+        <p>Estudar</p>
+        <div>
+          <button id="mark-as-done"><i class="fa-solid fa-check"></i></button>
+          <button id="delete"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <p class="title">Tarefas concluídas</p>
+
+    <div class="task-group complete-tasks">
+      <div class="task">
+        <p>Estudar</p>
+    </div>
+  </div>
+</body>
+</html>
