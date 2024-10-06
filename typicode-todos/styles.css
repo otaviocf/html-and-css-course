@@ -8,7 +8,7 @@
 
 :root {
   --background-color: #0D0714;
-  --accent-color: #9E78CF;
+  --accent-color: rgb(158, 120, 207);
   --light-color: #1D1825;
   --dark-color: #15101C;
   --complete-task-color: #78CFB0;
@@ -50,6 +50,11 @@ body {
     padding: 10px 1rem;
     background-color: transparent;
     color: #777;
+    transition: box-shadow 0.3s;
+    
+    &:focus {
+      box-shadow: 0 0 16px 8px rgba(158, 120, 207, 0.5);
+    }
   }
 
   button {
@@ -58,6 +63,11 @@ body {
     height: 2rem;
     width: 2rem;
     background-color: var(--accent-color);
+    transition: box-shadow 0.3s;
+    
+    &:hover {
+      box-shadow: 0 0 16px 8px rgba(158, 120, 207, 0.5);
+    }
   }
 }
 
