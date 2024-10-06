@@ -3,6 +3,8 @@ const addButton = document.querySelector('#add-item')
 const incompleteTasks = document.querySelector('.incomplete-tasks')
 const completeTasks = document.querySelector('.complete-tasks')
 const tasks = document.querySelector('.task')
+const amountIncomplete = document.querySelector('#amount-incomplete')
+const amountCompleted = document.querySelector('#amount-completed')
 
 
 function addTask(event) {
@@ -36,11 +38,15 @@ function addTask(event) {
   // Add to the DOM
   incompleteTasks.append(div)
 
+  taskCounter()
+
   input.value = ''
 }
 
 function removeTask(task) {
   task.parentElement.parentElement.parentElement.remove()
+
+  taskCounter()
 }
 
 function markAsDone(task) {
@@ -67,6 +73,8 @@ function markAsDone(task) {
 
   // Add to the DOM
   completeTasks.append(div)
+
+  taskCounter()
 }
 
 function taskHandler(event) {
@@ -75,6 +83,14 @@ function taskHandler(event) {
   } else if (event.target.id === 'check') {
     markAsDone(event.target)
   }
+}
+
+function taskCounter() {
+  const numberOfIncompleteTasks = incompleteTasks.children.length
+  const numberOfCompletedTasks = completeTasks.children.length
+
+  amountCompleted.textContent = numberOfCompletedTasks
+  amountIncomplete.textContent = numberOfIncompleteTasks
 }
 
 // Event Listeners
