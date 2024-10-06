@@ -111,9 +111,14 @@ body {
   display: flex;
   justify-content: space-between;
 
+  div {
+    display: flex;
+  }
+
 
   p {
     display: inline;
+    max-width: 90%;
   }
 
   button {
@@ -122,11 +127,12 @@ body {
 
     i {
       font-size: 1rem;
+      }
     }
   }
 
   button:first-of-type {
     margin-right: 1rem;
   }
-}
+
 
