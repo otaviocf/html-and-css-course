@@ -5,42 +5,49 @@ const completeTasks = document.querySelector('.complete-tasks')
 const tasks = document.querySelector('.task')
 const amountIncomplete = document.querySelector('#amount-incomplete')
 const amountCompleted = document.querySelector('#amount-completed')
+const APIurl = 'https://jsonplaceholder.typicode.com/todos'
 
 
 function addTask(event) {
   event.preventDefault()
 
-  // Create task element
-  const div = document.createElement('div')
-  div.classList.add('task')
-  const p = document.createElement('p')
-  p.textContent = input.value
-  const iconsDiv = document.createElement('div')
-  const checkmarkButton = document.createElement('button')
-  checkmarkButton.id = 'mark-as-done'
-  const trashButton = document.createElement('button')
-  trashButton.id = 'delete'
-  const checkmarkIcon = document.createElement('i')
-  checkmarkIcon.classList = 'fa-solid fa-check'
-  checkmarkIcon.id = 'check'
-  const trashIcon = document.createElement('i')
-  trashIcon.classList = 'fa-solid fa-trash'
-  trashIcon.id = 'trash'
-
-  // Place elements
-  iconsDiv.append(checkmarkButton)
-  iconsDiv.append(trashButton)
-  checkmarkButton.append(checkmarkIcon)
-  trashButton.append(trashIcon)
-  div.append(p)
-  div.append(iconsDiv)
-
-  // Add to the DOM
-  incompleteTasks.append(div)
+  incompleteTasks.append(createTaskElement(input.value, false))
 
   taskCounter()
 
   input.value = ''
+}
+
+function createTaskElement(taskText, status) {
+  const div = document.createElement('div')
+  div.classList.add('task')
+  const p = document.createElement('p')
+  p.textContent = taskText
+  const iconsDiv = document.createElement('div')
+  const trashButton = document.createElement('button')
+  trashButton.id = 'delete'
+  const trashIcon = document.createElement('i')
+  trashIcon.classList = 'fa-solid fa-trash'
+  trashIcon.id = 'trash'
+
+  if (!status) {
+    const checkmarkButton = document.createElement('button')
+    checkmarkButton.id = 'mark-as-done'
+    const checkmarkIcon = document.createElement('i')
+    checkmarkIcon.classList = 'fa-solid fa-check'
+    checkmarkIcon.id = 'check'
+
+    iconsDiv.append(checkmarkButton)
+    checkmarkButton.append(checkmarkIcon)
+  }
+
+  // Place elements
+  iconsDiv.append(trashButton)
+  trashButton.append(trashIcon)
+  div.append(p)
+  div.append(iconsDiv)
+
+  return div
 }
 
 function removeTask(task) {
@@ -97,3 +104,29 @@ function taskCounter() {
 addButton.addEventListener('click', addTask)
 incompleteTasks.addEventListener('click', taskHandler)
 completeTasks.addEventListener('click', taskHandler)
+
+
+async function fetchTasks(amount) {
+  const response = await fetch(`${APIurl}?_limit=${amount}`)
+  const data = await response.json()
+
+  return data
+}
+
+async function displayFetchData() {
+  const taskList = await fetchTasks(10)
+
+  taskList.forEach(task => {
+    const taskElement = createTaskElement(task.title, task.completed)
+
+    if (task.completed) {
+      completeTasks.append(taskElement)
+    } else {
+      incompleteTasks.append(taskElement)
+    }
+  });
+
+  taskCounter()
+}
+
+displayFetchData()
