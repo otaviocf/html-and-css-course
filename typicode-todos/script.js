@@ -11,18 +11,32 @@ const APIurl = 'https://jsonplaceholder.typicode.com/todos'
 function addTask(event) {
   event.preventDefault()
 
-  incompleteTasks.append(createTaskElement(input.value, false))
+  const newTask = {
+    title: input.value,
+    completed: false,
+  }
+
+  fetch(APIurl, {
+    method: 'POST',
+    body: JSON.stringify(newTask),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(res => res.json())
+    .then(data => incompleteTasks.append(createTaskElement(data)))
 
   taskCounter()
 
   input.value = ''
 }
 
-function createTaskElement(taskText, status) {
+function createTaskElement(task) {
   const div = document.createElement('div')
   div.classList.add('task')
+  div.setAttribute('data-id', task.id)
   const p = document.createElement('p')
-  p.textContent = taskText
+  p.textContent = task.title
   const iconsDiv = document.createElement('div')
   const trashButton = document.createElement('button')
   trashButton.id = 'delete'
@@ -30,7 +44,7 @@ function createTaskElement(taskText, status) {
   trashIcon.classList = 'fa-solid fa-trash'
   trashIcon.id = 'trash'
 
-  if (!status) {
+  if (!task.completed) {
     const checkmarkButton = document.createElement('button')
     checkmarkButton.id = 'mark-as-done'
     const checkmarkIcon = document.createElement('i')
@@ -100,33 +114,31 @@ function taskCounter() {
   amountIncomplete.textContent = numberOfIncompleteTasks
 }
 
-// Event Listeners
-addButton.addEventListener('click', addTask)
-incompleteTasks.addEventListener('click', taskHandler)
-completeTasks.addEventListener('click', taskHandler)
-
-
 async function fetchTasks(amount) {
   const response = await fetch(`${APIurl}?_limit=${amount}`)
   const data = await response.json()
-
+  
   return data
 }
 
 async function displayFetchData() {
-  const taskList = await fetchTasks(10)
-
+  const taskList = await fetchTasks(5)
+  
   taskList.forEach(task => {
-    const taskElement = createTaskElement(task.title, task.completed)
-
+    const taskElement = createTaskElement(task)
+    
     if (task.completed) {
       completeTasks.append(taskElement)
     } else {
       incompleteTasks.append(taskElement)
     }
   });
-
+  
   taskCounter()
 }
 
-displayFetchData()
+// Event Listeners
+document.addEventListener('DOMContentLoaded', displayFetchData())
+addButton.addEventListener('click', addTask)
+incompleteTasks.addEventListener('click', taskHandler)
+completeTasks.addEventListener('click', taskHandler)

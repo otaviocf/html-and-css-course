@@ -119,6 +119,7 @@ body {
   p {
     display: inline;
     max-width: 90%;
+    margin-right: 1rem;
   }
 
   button {
@@ -136,3 +137,8 @@ body {
   }
 
 
+@media (max-width: 620px) {
+  .container {
+    margin: 3rem 1rem;
+  }
+}
