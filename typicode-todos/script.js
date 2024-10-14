@@ -63,28 +63,37 @@ function createTaskElement(task) {
 	return div
 }
 
-function removeTask(task) {
+function removeTaskFromDOM(task) {
 	task.parentElement.parentElement.parentElement.remove()
-
-	fetch(
-		APIurl +
-			task.parentElement.parentElement.parentElement.getAttribute('data-id'),
-		{
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}
-	)
 
 	taskCounter()
 }
 
+function deleteTaskFromDB(taskID) {
+	fetch(APIurl + taskID, {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
+}
+
 function markAsDone(task) {
 	// Remove from list of incomplete tasks
-	removeTask(task)
+	removeTaskFromDOM(task)
 
-	// Create task element
+	// Update status in DB
+	fetch(
+		APIurl +
+			task.parentElement.parentElement.parentElement.getAttribute('data-id'),
+		{
+			method: 'PUT',
+			body: JSON.stringify({ completed: true }),
+			headers: { 'Content-Type': 'application/json' },
+		}
+	)
+
+	// Create completed task element
 	const div = document.createElement('div')
 	div.classList.add('task')
 	const p = document.createElement('p')
@@ -103,7 +112,7 @@ function markAsDone(task) {
 	div.append(p)
 	div.append(iconsDiv)
 
-	// Add to the DOM
+	// Add commpleted task element to DOM
 	completeTasks.append(div)
 
 	taskCounter()
@@ -111,7 +120,12 @@ function markAsDone(task) {
 
 function taskHandler(event) {
 	if (event.target.id === 'trash') {
-		removeTask(event.target)
+		removeTaskFromDOM(event.target)
+		deleteTaskFromDB(
+			event.target.parentElement.parentElement.parentElement.getAttribute(
+				'data-id'
+			)
+		)
 	} else if (event.target.id === 'check') {
 		markAsDone(event.target)
 	}
@@ -149,7 +163,7 @@ async function displayFetchData() {
 }
 
 // Event Listeners
-document.addEventListener('DOMContentLoaded', displayFetchData())
+document.addEventListener('DOMContentLoaded', displayFetchData)
 addButton.addEventListener('click', addTask)
 incompleteTasks.addEventListener('click', taskHandler)
 completeTasks.addEventListener('click', taskHandler)
